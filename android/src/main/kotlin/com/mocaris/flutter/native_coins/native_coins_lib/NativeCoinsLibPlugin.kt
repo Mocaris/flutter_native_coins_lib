@@ -23,7 +23,6 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
     /// This local reference serves to register the plugin with the Flutter Engine and unregister it
     /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
-    private lateinit var applicationContext: Context
 
     private val walletFactory: WalletFactory = WalletFactory()
 
@@ -31,8 +30,6 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
 
     override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
         channel = MethodChannel(flutterPluginBinding.binaryMessenger, "native_coins_lib")
-
-        applicationContext = flutterPluginBinding.applicationContext
         channel.setMethodCallHandler(this)
     }
 
