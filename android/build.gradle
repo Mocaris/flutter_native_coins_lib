@@ -1,0 +1,91 @@
+group 'com.mocaris.flutter.native_coins.native_coins_lib'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.6.0'
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 30
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+    }
+    packagingOptions {
+        /**
+         * 下面是排除多余的重复文件
+         * 助记词文件 只用到 bitcoinj 中的，所以其他jar包中的可以排除掉
+         */
+//        exclude 'org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
+//        exclude 'org/bitcoinj/crypto/cacerts'
+
+        exclude 'org.bitcoin.production.checkpoints.txt'
+        exclude 'org.bitcoin.test.checkpoints.txt'
+
+        exclude 'bch/org/bitcoinj/crypto/cacerts'
+        exclude 'bch/org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
+
+        exclude 'dash/org/bitcoinj/crypto/cacerts'
+        exclude 'dash/org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
+
+        exclude 'dash.org.bitcoin.production.checkpoints.txt'
+        exclude 'dash.org.bitcoin.test.checkpoints.txt'
+
+        exclude 'ltc/org/bitcoinj/crypto/cacerts'
+        exclude 'ltc/org/bitcoinj/crypto/mnemonic/wordlist/english.txt'
+
+        exclude 'dash.org.bitcoin.production.checkpoints.txt'
+        exclude 'dash.org.bitcoin.test.checkpoints.txt'
+        exclude 'lib/dashj-core-0.14.4.3.jar'
+
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+        exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.core:core-ktx:1.7.0'
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+    implementation "com.google.guava:guava:31.0.1-android"
+    //    以太坊
+    implementation 'org.web3j:core:5.0.0'
+    //File
+    implementation 'co.nstant.in:cbor:0.9'
+//    implementation 'com.github.apetersson:Blake2b:0.1'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+    implementation 'com.google.protobuf:protobuf-java:3.19.1'
+
+}
