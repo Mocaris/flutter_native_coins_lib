@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:native_coins_lib/support_coins.dart';
 export 'support_coins.dart';
+export 'encrypt/aes.dart';
+export 'encrypt/base58.dart';
+export 'mnemonic_util.dart';
 
 class NativeCoinsLib {
   static const MethodChannel _channel = MethodChannel('native_coins_lib');

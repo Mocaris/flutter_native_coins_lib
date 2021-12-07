@@ -3,10 +3,10 @@ import 'dart:typed_data';
 
 import 'package:encrypt/encrypt.dart' as ept;
 
-import 'base58.dart' as bs58;
+import 'base58.dart';
 
 extension EncryptedExt on ept.Encrypted {
-  String get base58 => bs58.encodeUint8List(bytes);
+  String get base58 => Base58.encodeUint8List(bytes);
 }
 
 class AESEncryption {
@@ -31,7 +31,7 @@ class AESEncryption {
   }
 
   String decrypt58(String encryptStr) {
-    var bytes = _aesEncrypt.decryptBytes(ept.Encrypted(bs58.decodeString(encryptStr)), iv: _iv);
+    var bytes = _aesEncrypt.decryptBytes(ept.Encrypted(Base58.decodeString(encryptStr)), iv: _iv);
     return String.fromCharCodes(bytes);
   }
 }
