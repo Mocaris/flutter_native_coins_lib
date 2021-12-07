@@ -15,6 +15,7 @@ import org.json.JSONObject
 import coins.wallet.coin.CoinType
 import coins.wallet.CoinWallet
 import coins.wallet.SignTransactionException
+import coins.wallet.mnemonic.MnemonicUtil
 import org.web3j.crypto.MnemonicUtils
 import java.math.BigInteger
 import java.util.*
@@ -44,12 +45,12 @@ class EOSWalletImp : CoinWallet() {
 
 
     private fun getBip39pk(mnemonicWords: List<String>, passPhrase: String): String {
-        val words = Joiner.on(" ").join(mnemonicWords)
+        val words = MnemonicUtil.toArrayString(mnemonicWords)
         return Ecc.seedPrivate(words)
     }
 
     private fun getBip44pk(mnemonicWords: List<String>, passPhrase: String): String {
-        val words = Joiner.on(" ").join(mnemonicWords)
+        val words = MnemonicUtil.toArrayString(mnemonicWords)
         val seed = MnemonicUtils.generateSeed(words, passPhrase)
         val rootPrivateKey = HDKeyDerivation.createMasterPrivateKey(seed)
         val deterministicHierarchy = DeterministicHierarchy(rootPrivateKey)

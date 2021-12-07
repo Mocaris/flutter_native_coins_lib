@@ -5,12 +5,12 @@ import co.nstant.`in`.cbor.CborEncoder
 import co.nstant.`in`.cbor.CborException
 import co.nstant.`in`.cbor.model.ByteString
 import co.nstant.`in`.cbor.model.UnsignedInteger
+import coins.wallet.mnemonic.MnemonicUtil
+import coins.wallet.security.Base64Java
 import com.google.common.collect.ImmutableList
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.DeterministicHierarchy
 import org.bitcoinj.crypto.HDKeyDerivation
-import coins.wallet.mnemonic.MnemonicUtil
-import coins.wallet.security.Base64Java
 import org.web3j.crypto.ECKeyPair
 import org.web3j.crypto.MnemonicUtils
 import org.web3j.crypto.Sign
@@ -18,6 +18,7 @@ import org.web3j.crypto.Sign.SignatureData
 import ove.crypto.digest.Blake2b
 import java.io.ByteArrayOutputStream
 import java.math.BigInteger
+import kotlin.experimental.and
 
 /**
  * * @Creator  Jacky
@@ -140,7 +141,7 @@ object FilecoinSign {
         val sig = ByteArray(65)
         System.arraycopy(signatureData.r, 0, sig, 0, 32)
         System.arraycopy(signatureData.s, 0, sig, 32, 32)
-        sig[64] = ((signatureData.v[0] and 0xFF.toByte()) - 27).toByte()
+        sig[64] = ((signatureData.v[0].and(0xFF.toByte()) - 27)).toByte()
         return sig
     }
 

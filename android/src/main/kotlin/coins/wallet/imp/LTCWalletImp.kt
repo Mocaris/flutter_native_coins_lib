@@ -48,7 +48,7 @@ class LTCWalletImp : CoinWallet() {
     }
 
     private fun generateBip39Address(wallet: Wallet): String {
-        wallet.freshKeys(KeyChain.KeyPurpose.RECEIVE_FUNDS, coinType().coinIndex)
+        wallet.freshKeys(KeyChain.KeyPurpose.RECEIVE_FUNDS, number)
         val addressList = wallet.issuedReceiveAddresses
         return addressList[addressList.size - 1].toString()
     }
