@@ -69,7 +69,6 @@ class LTCWalletImp : CoinWallet() {
         return ECKey.fromPrivate(fivepathhd.privKey)
     }
 
-
     override fun coinType(): CoinType = CoinType.LTC
 
     override fun generateAddress(mnemonicWords: List<String>, passPhrase: String): String {
