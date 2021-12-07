@@ -1,4 +1,5 @@
 class MnemonicUtil {
+
   static String toWordsString(List<String> words) {
     return words.join(r' ');
   }
@@ -6,4 +7,6 @@ class MnemonicUtil {
   static List<String> toWordsList(String words) {
     return words.split(r' ');
   }
+
+  MnemonicUtil._();
 }

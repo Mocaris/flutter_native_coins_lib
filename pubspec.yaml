@@ -1,6 +1,6 @@
 name: native_coins_lib
 description: native coins lib
-version: 0.0.2
+version: 0.0.3
 homepage:
 
 environment:
@@ -10,13 +10,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  encrypt: ^5.0.1
+  bs58: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
-  encrypt: ^5.0.1
-  bs58: ^1.0.2
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
