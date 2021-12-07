@@ -12,7 +12,7 @@ class NativeCoinsLib {
 
   ///初始化钱包配置
   static Future<bool?> initWalletConfig({required bool testNet}) {
-    return _channel.invokeMethod<bool>("initConfig", {"testNet": testNet});
+    return _channel.invokeMethod<bool>("initWalletConfig", {"testNet": testNet});
   }
 
   ///获取所有 单词
