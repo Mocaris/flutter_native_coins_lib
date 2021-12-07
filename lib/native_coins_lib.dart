@@ -16,13 +16,15 @@ class NativeCoinsLib {
   }
 
   ///获取所有 单词
-  static Future<List<String>?> getAllMnemonicWords() {
-    return _channel.invokeMethod<List<String>>("getAllMnemonicWords");
+  static Future<List<String>?> getAllMnemonicWords() async {
+    var res = await _channel.invokeMethod<List>("getAllMnemonicWords");
+    return res?.map((e) => e.toString()).toList();
   }
 
   ///创建助记词
-  static Future<List<String>?> generateMnemonicWords() {
-    return _channel.invokeMethod<List<String>>("generateMnemonic");
+  static Future<List<String>?> generateMnemonicWords() async{
+    var res= await _channel.invokeMethod<List>("generateMnemonic");
+    return res?.map((e) => e.toString()).toList();
   }
 
   ///检查助记词
@@ -41,12 +43,11 @@ class NativeCoinsLib {
   }
 
   ///签名
-  static Future<String?> signTransaction(
-      {required String words,
-      required MainCoin coin,
-      required String inputTransaction,
-      required String addressTo,
-      String passPhrase = ""}) {
+  static Future<String?> signTransaction({required String words,
+    required MainCoin coin,
+    required String inputTransaction,
+    required String addressTo,
+    String passPhrase = ""}) {
     return _channel.invokeMethod<String>("signTransaction", {
       "words": words,
       "coinName": coin.coinName,
