@@ -18,6 +18,7 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/public' }
     }
 }
 
@@ -38,7 +39,30 @@ android {
     defaultConfig {
         minSdkVersion 16
     }
-    packagingOptions {
+    packagingOptions { exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude 'org/bouncycastle/LICENSE'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/io.netty.versions.properties'
+
+
         /**
          * 下面是排除多余的重复文件
          * 助记词文件 只用到 bitcoinj 中的，所以其他jar包中的可以排除掉
@@ -67,15 +91,34 @@ android {
 
         exclude 'lib/x86_64/darwin/libscrypt.dylib'
         exclude 'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+    }
 
+    configurations.all {
+        c ->
+            c.resolutionStrategy.eachDependency {
+                DependencyResolveDetails dependency ->
+                    println dependency.requested.group
+                    if (dependency.requested.group == 'org.bouncycastle') {
+                        dependency.useTarget 'org.bouncycastle:bcprov-jdk15on:1.65'
+                    }
+            }
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.core:core-ktx:1.6.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+
+// https://mvnrepository.com/artifact/org.bitcoinj/bitcoinj-core
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
+
+    //bck need
+    // https://mvnrepository.com/artifact/com.madgag.spongycastle/bcpkix-jdk15on
+    implementation 'com.madgag.spongycastle:bcpkix-jdk15on:1.58.0.0'
 
     implementation "com.google.guava:guava:31.0.1-android"
     //    以太坊
@@ -84,8 +127,25 @@ dependencies {
     implementation 'co.nstant.in:cbor:0.9'
 //    implementation 'com.github.apetersson:Blake2b:0.1'
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
     implementation 'com.google.protobuf:protobuf-java:3.19.1'
+    //trx
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    // https://mvnrepository.com/artifact/commons-lang/commons-lang
+    implementation 'commons-lang:commons-lang:2.6'
+    // https://mvnrepository.com/artifact/com.typesafe.config/config
+//    implementation 'com.typesafe.config:config:0.3.0'
+    // https://mvnrepository.com/artifact/io.grpc/grpc-stub
+    implementation 'io.grpc:grpc-stub:1.9.0'
+// https://mvnrepository.com/artifact/io.grpc/grpc-protobuf
+    implementation 'io.grpc:grpc-protobuf:1.9.0'
+    // https://mvnrepository.com/artifact/io.grpc/grpc-netty
+    implementation 'io.grpc:grpc-netty:1.9.0'
+// https://mvnrepository.com/artifact/com.madgag.spongycastle/core
+    implementation 'com.madgag.spongycastle:core:1.58.0.0'
+    // https://mvnrepository.com/artifact/com.madgag.spongycastle/prov
+    implementation 'com.madgag.spongycastle:prov:1.58.0.0'
+
 
 }
