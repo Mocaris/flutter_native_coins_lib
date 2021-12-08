@@ -25,16 +25,16 @@ import kotlin.experimental.and
  * * @CreateTime 2020/11/7
  * * @Description
  */
-object FilecoinSign {
+object FilcoinSign {
 
-    val CID_PREFIX = byteArrayOf(0x01, 0x71, 0xa0.toByte(), 0xe4.toByte(), 0x02, 0x20)
-    val FIL_HARDENED = ChildNumber(461, true)
+    private val CID_PREFIX = byteArrayOf(0x01, 0x71, 0xa0.toByte(), 0xe4.toByte(), 0x02, 0x20)
+    private val FIL_HARDENED = ChildNumber(461, true)
 
-    fun transaction(tran: FileCoinTransaction): SignData {
+    private fun transaction(tran: FilCoinTransaction): FilSignData {
         //构建交易结构体
         val from = getByte(tran.from)
         val to = getByte(tran.to)
-        val signData = SignData()
+        val signData = FilSignData()
         signData.version = UnsignedInteger(0)
         signData.to = ByteString(to)
         signData.from = ByteString(from)
@@ -81,7 +81,7 @@ object FilecoinSign {
     }
 
     @JvmStatic
-    fun signTransaction(tran: FileCoinTransaction, mnemonicWords: List<String>): String? {
+    fun signTransaction(tran: FilCoinTransaction, mnemonicWords: List<String>): String? {
         val (version, from, to, nonce, value, gasFeeCap, gasPremium, gasLimit, methodNum) = transaction(tran)
         val baos = ByteArrayOutputStream()
         try {

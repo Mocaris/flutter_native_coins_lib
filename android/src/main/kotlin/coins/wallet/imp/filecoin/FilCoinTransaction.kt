@@ -5,7 +5,7 @@ package coins.wallet.imp.filecoin
  * * @CreateTime 2020/11/6
  * * @Description
  */
-data class FileCoinTransaction(
+public data class FilCoinTransaction(
     var to: String = "",
     var from: String = "",
     var nonce: Long = 0,

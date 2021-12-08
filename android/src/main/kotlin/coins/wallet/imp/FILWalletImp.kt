@@ -10,8 +10,8 @@ import coins.wallet.CoinWallet
 import coins.wallet.SignTransactionException
 import coins.wallet.coin.CoinType
 import coins.wallet.imp.filecoin.Base32
-import coins.wallet.imp.filecoin.FileCoinTransaction
-import coins.wallet.imp.filecoin.FilecoinSign
+import coins.wallet.imp.filecoin.FilCoinTransaction
+import coins.wallet.imp.filecoin.FilcoinSign
 import coins.wallet.mnemonic.MnemonicUtil
 import org.web3j.crypto.MnemonicUtils
 import org.web3j.utils.Numeric
@@ -32,22 +32,20 @@ class FILWalletImp : CoinWallet() {
 
     override fun signTransaction(inputTransaction: String, addr: String, mnemonicWords: List<String>, passPhrase: String): String {
         try {
-            val tran = FileCoinTransaction()
             val jsonObject: JSONObject = JSONObject(inputTransaction)
             val value: String = jsonObject.getString("value")
             val amount = BigDecimal(value).multiply(BigDecimal.TEN.pow(18))
-
-            tran.from = jsonObject.getString("from")
-            tran.to = jsonObject.getString("to")
-            tran.value = amount.toBigInteger().toString()
-            tran.nonce = jsonObject.getLong("nonce")
-            tran.gasLimit = jsonObject.getLong("gasLimit")
-            tran.gasFeeCap = jsonObject.getString("gasFeeCap")
-            tran.gasPremium = jsonObject.getString("gasPremium")
-            tran.method = 0L
-            tran.params = ""
-
-            return FilecoinSign.signTransaction(tran, mnemonicWords)?.let { sign ->
+            val tran = FilCoinTransaction(
+                from = jsonObject.getString("from"),
+                to = jsonObject.getString("to"),
+                value = amount.toBigInteger().toString(),
+                nonce = jsonObject.getLong("nonce"),
+                gasLimit = jsonObject.getLong("gasLimit"),
+                gasFeeCap = jsonObject.getString("gasFeeCap"),
+                gasPremium = jsonObject.getString("gasPremium"),
+                method = 0L
+            )
+            return FilcoinSign.signTransaction(tran, mnemonicWords)?.let { sign ->
                 val cid = JSONObject()
                 val signer = JSONObject()
                 val message = JSONObject()

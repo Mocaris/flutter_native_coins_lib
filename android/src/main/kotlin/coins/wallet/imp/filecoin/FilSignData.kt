@@ -9,7 +9,7 @@ import co.nstant.`in`.cbor.model.UnsignedInteger
  * * @CreateTime 2020/11/6
  * * @Description
  */
-data class SignData(
+public  data class FilSignData(
     var version: UnsignedInteger? = null,
     var from: ByteString? = null,
     var to: ByteString? = null,
