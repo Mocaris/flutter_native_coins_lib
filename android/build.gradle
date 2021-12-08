@@ -76,6 +76,8 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
+// https://mvnrepository.com/artifact/org.bitcoinj/bitcoinj-core
+    implementation 'org.bitcoinj:bitcoinj-core:0.15.10'
 
     implementation "com.google.guava:guava:31.0.1-android"
     //    以太坊
