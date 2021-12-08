@@ -30,7 +30,6 @@ class WalletFactory {
                 CoinType.ETC -> ETCWalletImp()
                 CoinType.FIL -> FILWalletImp()
                 CoinType.TRX -> TRXWalletImp()
-                else -> throw RuntimeException("coinType can not be unknown")
             }
             walletCache[coinType] = wallet
             wallet
