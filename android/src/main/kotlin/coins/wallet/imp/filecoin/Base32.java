@@ -32,14 +32,14 @@ public class Base32 extends Object {
 															// '{', '|', '}',
 															// '~', 'DEL'
 	};
- 
+
 	/**
 	 * Encodes byte array to Base32 String.
-	 * 
+	 *
 	 * @param bytes
 	 *            Bytes to encode.
 	 * @return Encoded byte array <code>bytes</code> as a String.
-	 * 
+	 *
 	 */
 	static public String encode(final byte[] bytes) {
 		int i = 0, index = 0, digit = 0;
@@ -70,10 +70,10 @@ public class Base32 extends Object {
 		}
 		return base32.toString();
 	}
- 
+
 	/**
 	 * Decodes the given Base32 String to a raw byte array.
-	 * 
+	 *
 	 * @param base32
 	 * @return Decoded <code>base32</code> String as a raw byte array.
 	 */
@@ -113,7 +113,7 @@ public class Base32 extends Object {
 		}
 		return bytes;
 	}
- 
+
 	private static String toHex(byte[] decoded) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("{");
