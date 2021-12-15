@@ -26,7 +26,7 @@ import coins.wallet.coin.CoinType
 class BTCWalletImp : CoinWallet() {
     private val netParams = if (config.testNet) TestNet3Params.get() else MainNetParams.get()
 
-    private val HARDENED = ChildNumber(0, true)
+    private val HARDENED = if(config.testNet) ChildNumber(1, true) else  ChildNumber(0, true)
 
     private val number = 0
 
