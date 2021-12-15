@@ -27,7 +27,7 @@ import coins.wallet.coin.CoinType
 
 class LTCWalletImp : CoinWallet() {
 
-    private val HARENED = if (config.testNet) ChildNumber(5, true) else ChildNumber(5, true)
+    private val HARENED = if (config.testNet) ChildNumber(1, true) else ChildNumber(5, true)
 
     private val netParam = if (config.testNet) TestNet3Params.get() else MainNetParams.get()
 
