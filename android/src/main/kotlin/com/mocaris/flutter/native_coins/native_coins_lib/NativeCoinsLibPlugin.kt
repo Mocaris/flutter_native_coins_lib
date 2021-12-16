@@ -5,6 +5,7 @@ import androidx.annotation.NonNull
 import coins.wallet.CoinWallet
 import coins.wallet.WalletFactory
 import coins.wallet.coin.CoinType
+import coins.wallet.imp.ETHWalletImp
 import coins.wallet.mnemonic.MnemonicUtil
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -58,6 +59,9 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
             "signTransaction" -> {
                 signTransaction(call, result)
             }
+            "ethSignHash2Rvs" -> {
+                signHash2Rvs(call, result)
+            }
             else -> result.notImplemented()
         }
     }
@@ -88,7 +92,32 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
                         result.success(signHash)
                     }
                 } catch (e: Exception) {
-                    result.error("0", e.message, "checkAddress")
+                    withContext(Dispatchers.Main) {
+                        result.error("0", e.message, "signTransaction")
+                    }
+                }
+            }
+        }
+    }
+
+    private fun signHash2Rvs(call: MethodCall, result: Result) {
+        val words = call.argument<List<String>>("words")
+        val signHash = call.argument<String>("signHash")
+        val passPhrase = call.argument<String>("passPhrase")
+        val ethWallet = walletFactory.getCoinWallet(CoinType.ETH) as ETHWalletImp
+        if (null == words || null == signHash || null == passPhrase) {
+            result.error("0", "words and signHash and passPhrase can not be null", "signHash2Rvs")
+        } else {
+            pluginScope.launch(Dispatchers.IO) {
+                try {
+                    val signHash2Rvs = ethWallet.signHash2Rvs(hash = signHash, mnemonicWords = words, passPhrase = passPhrase)
+                    withContext(Dispatchers.Main) {
+                        result.success(signHash2Rvs);
+                    }
+                } catch (e: Exception) {
+                    withContext(Dispatchers.Main) {
+                        result.error("0", e.message, "signHash2Rvs")
+                    }
                 }
             }
         }

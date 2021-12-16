@@ -58,4 +58,9 @@ class NativeCoinsLib {
       "passPhrase": passPhrase
     });
   }
+
+  ///eth Hash2Rvs签名
+  Future<String?> ethSignHash2Rvs({required String words, required String signHash, String passPhrase = ""}) {
+    return _channel.invokeMethod<String>("ethSignHash2Rvs", {"words": words, "signHash": signHash, "passPhrase": passPhrase});
+  }
 }
