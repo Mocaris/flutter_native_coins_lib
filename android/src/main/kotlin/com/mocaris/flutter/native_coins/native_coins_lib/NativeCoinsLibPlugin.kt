@@ -1,12 +1,6 @@
 package com.mocaris.flutter.native_coins.native_coins_lib
 
-import android.content.Context
 import androidx.annotation.NonNull
-import coins.wallet.CoinWallet
-import coins.wallet.WalletFactory
-import coins.wallet.coin.CoinType
-import coins.wallet.imp.ETHWalletImp
-import coins.wallet.mnemonic.MnemonicUtil
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -14,6 +8,11 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import kotlinx.coroutines.*
+import org.mocaris.coins.wallet.CoinWallet
+import org.mocaris.coins.wallet.WalletFactory
+import org.mocaris.coins.wallet.coin.CoinType
+import org.mocaris.coins.wallet.imp.*
+import org.mocaris.coins.wallet.mnemonic.MnemonicUtil
 import java.lang.Exception
 import kotlin.coroutines.coroutineContext
 
