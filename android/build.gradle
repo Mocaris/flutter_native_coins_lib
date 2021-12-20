@@ -96,6 +96,12 @@ android {
                     }
             }
     }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
@@ -103,5 +109,5 @@ dependencies {
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-android
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
+    implementation(name: 'coinslib-release', ext: 'aar')
 }
