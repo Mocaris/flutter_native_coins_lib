@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_coins_lib.iml" filepath="$PROJECT_DIR$/.idea/modules/native_coins_lib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coinslib/native_coins_lib.coinslib.iml" filepath="$PROJECT_DIR$/.idea/modules/coinslib/native_coins_lib.coinslib.iml" />
     </modules>
   </component>
 </project>
