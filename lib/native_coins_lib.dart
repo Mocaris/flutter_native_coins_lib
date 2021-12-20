@@ -45,7 +45,7 @@ class NativeCoinsLib {
 
   ///签名
   Future<String?> signTransaction(
-      {required String words,
+      {required List<String> words,
       required MainCoin coin,
       required String inputTransaction,
       required String addressTo,
@@ -60,7 +60,7 @@ class NativeCoinsLib {
   }
 
   ///eth Hash2Rvs签名
-  Future<String?> ethSignHash2Rvs({required String words, required String signHash, String passPhrase = ""}) {
+  Future<String?> ethSignHash2Rvs({required List<String> words, required String signHash, String passPhrase = ""}) {
     return _channel.invokeMethod<String>("ethSignHash2Rvs", {"words": words, "signHash": signHash, "passPhrase": passPhrase});
   }
 }
