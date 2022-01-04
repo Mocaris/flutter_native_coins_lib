@@ -23,6 +23,8 @@ open class ETHWalletImp : CoinWallet() {
 
     private val number = 0
 
+    private val chainId: Long = if (config.testNet) 4 else 1
+
     override fun coinType(): CoinType = CoinType.ETH
 
     private fun createBip39Credentials(
@@ -82,7 +84,7 @@ open class ETHWalletImp : CoinWallet() {
             val to = jsonObject.getString("to")
             val rawTransaction =
                 RawTransaction.createTransaction(nonce, gasPrice, gasLimit, to, value, data)
-            val signMessage = TransactionEncoder.signMessage(rawTransaction, credentials)
+            val signMessage = TransactionEncoder.signMessage(rawTransaction, chainId, credentials)
             return Numeric.toHexString(signMessage).substring(2)
         } catch (e: Exception) {
             e.printStackTrace()
