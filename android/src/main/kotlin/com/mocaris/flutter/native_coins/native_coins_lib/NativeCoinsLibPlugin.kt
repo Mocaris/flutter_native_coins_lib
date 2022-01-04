@@ -128,7 +128,7 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
         if (null != address && null != coinName) {
             try {
                 val coinWallet = walletFactory.getCoinWallet(CoinType.valueOf(coinName))
-                coinWallet.checkAddress(address)
+                result.success(coinWallet.checkAddress(address))
             } catch (e: Exception) {
                 result.error("0", e.message, "checkAddress")
             }
