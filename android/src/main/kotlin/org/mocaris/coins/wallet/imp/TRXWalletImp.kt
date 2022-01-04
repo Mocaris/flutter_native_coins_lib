@@ -9,9 +9,11 @@ import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.DeterministicHierarchy
 import org.bitcoinj.crypto.DeterministicKey
 import org.bitcoinj.crypto.HDKeyDerivation
+import org.bouncycastle.util.encoders.Hex
 import org.mocaris.coins.wallet.CoinWallet
 import org.mocaris.coins.wallet.SignTransactionException
 import org.mocaris.coins.wallet.coin.CoinType
+import org.spongycastle.jcajce.provider.asymmetric.ec.BCECPrivateKey
 import org.tron.common.crypto.ECKey
 import org.tron.common.crypto.Sha256Hash
 import org.tron.keystore.Credentials
@@ -40,14 +42,20 @@ class TRXWalletImp : CoinWallet() {
         val fivepathhd: DeterministicKey = HDKeyDerivation.deriveChildKey(fourpathhd, number)
         val privateKeyByte = fivepathhd.privKeyBytes
         val ecKey: ECKey = ECKey.fromPrivate(privateKeyByte)
+        ecKey.toStringWithPrivate()
         return Credentials.create(ecKey)
     }
 
-
     override fun generateAddress(mnemonicWords: List<String>, passPhrase: String): String {
-        val credentials = getBip44Credentials(mnemonicWords, passPhrase)
-        return credentials.address
+        return getBip44Credentials(mnemonicWords, passPhrase).address
+    }
 
+    override fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return Hex.toHexString(getBip44Credentials(mnemonicWords, passPhrase).ecKeyPair.pubKey)
+    }
+
+    override fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return Hex.toHexString(getBip44Credentials(mnemonicWords, passPhrase).ecKeyPair.privKey.toByteArray())
     }
 
     override fun signTransaction(inputTransaction: String, addr: String, mnemonicWords: List<String>, passPhrase: String): String {

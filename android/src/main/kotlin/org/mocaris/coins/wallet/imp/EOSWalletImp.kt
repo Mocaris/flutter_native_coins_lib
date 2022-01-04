@@ -42,7 +42,6 @@ class EOSWalletImp : CoinWallet() {
         return Ecc.privateToPublic(pk)
     }
 
-
     private fun getBip39pk(mnemonicWords: List<String>, passPhrase: String): String {
         val words = MnemonicUtil.toArrayString(mnemonicWords)
         return Ecc.seedPrivate(words)
@@ -71,6 +70,14 @@ class EOSWalletImp : CoinWallet() {
 
     override fun generateAddress(mnemonicWords: List<String>, passPhrase: String): String {
         return generateBip44Address(mnemonicWords, passPhrase)
+    }
+
+    override fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return ""
+    }
+
+    override fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return ""
     }
 
     override fun signTransaction(

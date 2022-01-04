@@ -27,7 +27,20 @@ class FILWalletImp : CoinWallet() {
     override fun coinType(): CoinType = CoinType.FIL
 
     override fun generateAddress(mnemonicWords: List<String>, passPhrase: String): String {
-        return getBip44Credentials(mnemonicWords, passPhrase, number)
+        val ecKey = getBip44Credentials(mnemonicWords, passPhrase)
+        val pulStr = ecKey.publicKeyAsHex
+        val bytes = Numeric.hexStringToByteArray(pulStr)
+        val black2HashByte = Blake2b.Digest.newInstance(20).digest(bytes)
+        val black2HashStr = Numeric.toHexStringNoPrefix(black2HashByte)
+        val black2HashSecond = "0x01$black2HashStr"
+        val blake2b2 = Blake2b.Digest.newInstance(4)
+        val checksumBytes = blake2b2.digest(Numeric.hexStringToByteArray(black2HashSecond))
+        val addressBytes = ByteArray(black2HashByte.size + checksumBytes.size)
+        System.arraycopy(black2HashByte, 0, addressBytes, 0, black2HashByte.size)
+        System.arraycopy(checksumBytes, 0, addressBytes, black2HashByte.size, checksumBytes.size)
+        //f 正式 t 测试 1 钱包 2 合约
+        return "f1" + Base32.encode(addressBytes)
+
     }
 
     override fun signTransaction(inputTransaction: String, addr: String, mnemonicWords: List<String>, passPhrase: String): String {
@@ -85,7 +98,7 @@ class FILWalletImp : CoinWallet() {
     }
 
 
-    private fun getBip44Credentials(mnemonicWords: List<String>, passPhrase: String, number: Int): String {
+    private fun getBip44Credentials(mnemonicWords: List<String>, passPhrase: String): ECKey {
         val words = MnemonicUtil.toArrayString(mnemonicWords)
         val seed = MnemonicUtils.generateSeed(words, passPhrase)
         val rootPrivateKey = HDKeyDerivation.createMasterPrivateKey(seed)
@@ -94,20 +107,16 @@ class FILWalletImp : CoinWallet() {
         val fourpath = deterministicHierarchy[path, true, true]
         val fourpathhd = HDKeyDerivation.deriveChildKey(fourpath, 0)
         val fivepathhd = HDKeyDerivation.deriveChildKey(fourpathhd, number)
-        val blake2b1 = Blake2b.Digest.newInstance(20)
-        val ecKey = ECKey.fromPrivate(fivepathhd.privKey, false)
-        val pulStr = ecKey.publicKeyAsHex
-        val bytes = Numeric.hexStringToByteArray(pulStr)
-        val black2HashByte = blake2b1.digest(bytes)
-        val black2HashStr = Numeric.toHexStringNoPrefix(black2HashByte)
-        val black2HashSecond = "0x01$black2HashStr"
-        val blake2b2 = Blake2b.Digest.newInstance(4)
-        val checksumBytes = blake2b2.digest(Numeric.hexStringToByteArray(black2HashSecond))
-        val addressBytes = ByteArray(black2HashByte.size + checksumBytes.size)
-        System.arraycopy(black2HashByte, 0, addressBytes, 0, black2HashByte.size)
-        System.arraycopy(checksumBytes, 0, addressBytes, black2HashByte.size, checksumBytes.size)
-        //f 正式 t 测试 1 钱包 2 合约
-        return "f1" + Base32.encode(addressBytes)
+        return ECKey.fromPrivate(fivepathhd.privKey, false)
+    }
+
+
+    override fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return getBip44Credentials(mnemonicWords, passPhrase).privateKeyAsHex
+    }
+
+    override fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return getBip44Credentials(mnemonicWords, passPhrase).publicKeyAsHex
     }
 
 }

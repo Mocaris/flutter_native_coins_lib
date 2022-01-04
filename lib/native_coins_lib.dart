@@ -35,12 +35,22 @@ class NativeCoinsLib {
 
   ///地址
   Future<String?> getAddress({required List<String> words, required MainCoin coin, String passPhrase = ""}) {
-    return _channel.invokeMethod<String>("getAddress", {"words": words, "coinName": coin.coinName, passPhrase: passPhrase});
+    return _channel.invokeMethod<String>("getAddress", {"words": words, "coinName": coin.coinName, "passPhrase": passPhrase});
   }
 
   ///验证地址
   Future<bool?> checkAddress(String address, MainCoin coin) {
     return _channel.invokeMethod<bool>("checkAddress", {"address": address, "coinName": coin.coinName});
+  }
+
+  ///私钥
+  Future<String?> getPrivateKeyHex({required List<String> words, required MainCoin coin, String passPhrase = ""}) {
+    return _channel.invokeMethod<String>("getPrivateKeyHex", {"words": words, "coinName": coin.coinName, "passPhrase": passPhrase});
+  }
+
+  ///公钥
+  Future<String?> getPublicKeyHex({required List<String> words, required MainCoin coin, String passPhrase = ""}) {
+    return _channel.invokeMethod<String>("getPublicKeyHex", {"words": words, "coinName": coin.coinName, "passPhrase": passPhrase});
   }
 
   ///签名

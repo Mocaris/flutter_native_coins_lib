@@ -55,6 +55,12 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
             "checkAddress" -> {
                 checkAddress(call, result)
             }
+            "getPublicKeyHex" -> {
+                getPrivateKeyHex(call, result)
+            }
+            "getPrivateKeyHex" -> {
+                getPublicKeyHex(call, result)
+            }
             "signTransaction" -> {
                 signTransaction(call, result)
             }
@@ -62,6 +68,40 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
                 signHash2Rvs(call, result)
             }
             else -> result.notImplemented()
+        }
+    }
+
+    private fun getPrivateKeyHex(call: MethodCall, result: Result) {
+        val words = call.argument<List<String>>("words")
+        val coinName = call.argument<String>("coinName")
+        val passPhrase = call.argument<String>("passPhrase")
+        try {
+            if (null == words || null == coinName) {
+                result.error("0", "words and coinName can not be null", "getPrivateKeyHex")
+            } else {
+                val wallet = walletFactory.getCoinWallet(CoinType.valueOf(coinName))
+                result.success(wallet.getPrivateKey(words, passPhrase ?: ""))
+            }
+        } catch (e: Exception) {
+            result.error("0", e.message, "getPrivateKeyHex")
+            e.printStackTrace()
+        }
+    }
+
+    private fun getPublicKeyHex(call: MethodCall, result: Result) {
+        val words = call.argument<List<String>>("words")
+        val coinName = call.argument<String>("coinName")
+        val passPhrase = call.argument<String>("passPhrase")
+        try {
+            if (null == words || null == coinName) {
+                result.error("0", "words and coinName can not be null", "getPublicKeyHex")
+            } else {
+                val wallet = walletFactory.getCoinWallet(CoinType.valueOf(coinName))
+                result.success(wallet.getPublicKey(words, passPhrase ?: ""))
+            }
+        } catch (e: Exception) {
+            result.error("0", e.message, "getPublicKeyHex")
+            e.printStackTrace()
         }
     }
 

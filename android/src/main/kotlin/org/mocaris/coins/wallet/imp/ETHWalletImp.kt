@@ -4,6 +4,7 @@ import com.google.common.base.Joiner
 import org.bitcoinj.crypto.ChildNumber
 import org.bitcoinj.crypto.DeterministicHierarchy
 import org.bitcoinj.crypto.HDKeyDerivation
+import org.bouncycastle.util.encoders.Hex
 import org.json.JSONObject
 import org.mocaris.coins.wallet.CoinWallet
 import org.mocaris.coins.wallet.SignTransactionException
@@ -65,6 +66,14 @@ open class ETHWalletImp : CoinWallet() {
     override fun generateAddress(mnemonicWords: List<String>, passPhrase: String): String {
         val credentials = createBip44Credentials(mnemonicWords, passPhrase)
         return generateBip44Address(credentials)
+    }
+
+    override fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return Hex.toHexString(createBip44Credentials(mnemonicWords, passPhrase).ecKeyPair.publicKey.toByteArray())
+    }
+
+    override fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return Hex.toHexString(createBip44Credentials(mnemonicWords, passPhrase).ecKeyPair.privateKey.toByteArray())
     }
 
     override fun signTransaction(

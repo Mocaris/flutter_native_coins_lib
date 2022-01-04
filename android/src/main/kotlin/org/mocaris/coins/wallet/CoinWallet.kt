@@ -35,6 +35,15 @@ abstract class CoinWallet {
      */
     abstract fun generateAddress(mnemonicWords: List<String>, passPhrase: String = ""): String
 
+    /**
+     * 私钥
+     */
+    abstract fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String
+
+    /**
+     * 公钥
+     */
+    abstract fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String
 
     /**
      * 交易签名

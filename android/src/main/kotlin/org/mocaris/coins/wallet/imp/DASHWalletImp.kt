@@ -74,6 +74,14 @@ class DASHWalletImp : CoinWallet() {
         return generateBip44Address(mnemonicWords, passPhrase)
     }
 
+    override fun getPrivateKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return createBip44ECKey(mnemonicWords,passPhrase).privateKeyAsHex
+    }
+
+    override fun getPublicKey(mnemonicWords: List<String>, passPhrase: String): String {
+        return createBip44ECKey(mnemonicWords,passPhrase).publicKeyAsHex
+    }
+
     override fun signTransaction(
         inputTransaction: String,
         addr: String,
