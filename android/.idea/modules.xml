@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_coins_lib.iml" filepath="$PROJECT_DIR$/.idea/modules/native_coins_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_coins_lib.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/native_coins_lib.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_coins_lib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/native_coins_lib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/native_coins_lib.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/native_coins_lib.unitTest.iml" />
     </modules>
   </component>
 </project>
