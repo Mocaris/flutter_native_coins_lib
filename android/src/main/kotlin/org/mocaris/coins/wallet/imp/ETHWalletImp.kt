@@ -24,7 +24,7 @@ open class ETHWalletImp : CoinWallet() {
 
     private val number = 0
 
-    private val chainId: Long = if (config.testNet) 4 else 1
+    open val chainId: Long = if (config.testNet) 4 else 1
 
     override fun coinType(): CoinType = CoinType.ETH
 

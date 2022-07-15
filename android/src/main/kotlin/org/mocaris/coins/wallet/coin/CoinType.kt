@@ -5,6 +5,7 @@ enum class CoinType {
     BTC,
     BCH,
     ETH,
+    BNB,
     LTC,
     ETC,
     DASH,

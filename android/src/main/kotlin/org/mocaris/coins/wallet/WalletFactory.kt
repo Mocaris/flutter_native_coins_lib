@@ -18,6 +18,7 @@ class WalletFactory {
                 CoinType.BTC -> BTCWalletImp()
                 CoinType.BCH -> BCHWalletImp()
                 CoinType.ETH -> ETHWalletImp()
+                CoinType.BNB -> BNBWalletImp()
                 CoinType.LTC -> LTCWalletImp()
                 CoinType.DASH -> DASHWalletImp()
                 CoinType.EOS -> EOSWalletImp()
