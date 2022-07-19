@@ -50,14 +50,12 @@ abstract class CoinWallet {
      * signature for  coin trading
      *
      * [inputTransaction]  交易信息
-     *  [addr]             付款方地址
      *  [mnemonicWords]    助记词
      *  [passPhrase]       密码
      */
     @Throws(SignTransactionException::class)
     abstract fun signTransaction(
         inputTransaction: String,
-        addr: String,
         mnemonicWords: List<String>,
         passPhrase: String = ""
     ): String

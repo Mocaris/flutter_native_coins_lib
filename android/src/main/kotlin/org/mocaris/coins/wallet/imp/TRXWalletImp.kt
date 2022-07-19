@@ -58,7 +58,7 @@ class TRXWalletImp : CoinWallet() {
         return Hex.toHexString(getBip44Credentials(mnemonicWords, passPhrase).ecKeyPair.privKey.toByteArray())
     }
 
-    override fun signTransaction(inputTransaction: String, addr: String, mnemonicWords: List<String>, passPhrase: String): String {
+    override fun signTransaction(inputTransaction: String, mnemonicWords: List<String>, passPhrase: String): String {
         try {
             val bip44Credentials = getBip44Credentials(mnemonicWords, passPhrase)
             val transaction = Protocol.Transaction.parseFrom(ByteArray.fromHexString(inputTransaction))

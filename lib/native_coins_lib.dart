@@ -58,13 +58,11 @@ class NativeCoinsLib {
       {required List<String> words,
       required MainCoin coin,
       required String inputTransaction,
-      required String addressTo,
       String passPhrase = ""}) {
     return _channel.invokeMethod<String>("signTransaction", {
       "words": words,
       "coinName": coin.coinName,
       "inputTransaction": inputTransaction,
-      "addressTo": addressTo,
       "passPhrase": passPhrase
     });
   }

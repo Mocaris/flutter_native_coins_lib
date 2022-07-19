@@ -20,6 +20,8 @@ import org.web3j.utils.Numeric
  */
 open class BNBWalletImp : ETHWalletImp() {
 
+    override fun coinType(): CoinType = CoinType.BNB
+
     override val chainId: Long = if (config.testNet) 97 else 56
 
 }

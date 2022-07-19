@@ -43,7 +43,7 @@ class FILWalletImp : CoinWallet() {
 
     }
 
-    override fun signTransaction(inputTransaction: String, addr: String, mnemonicWords: List<String>, passPhrase: String): String {
+    override fun signTransaction(inputTransaction: String,mnemonicWords: List<String>, passPhrase: String): String {
         try {
             val jsonObject: JSONObject = JSONObject(inputTransaction)
             val value: String = jsonObject.getString("value")

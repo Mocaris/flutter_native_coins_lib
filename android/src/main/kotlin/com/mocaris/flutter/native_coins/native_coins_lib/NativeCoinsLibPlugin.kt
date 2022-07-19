@@ -119,14 +119,13 @@ class NativeCoinsLibPlugin : FlutterPlugin, MethodCallHandler {
         val coinName = call.argument<String>("coinName")
         val passPhrase = call.argument<String>("passPhrase")
         val inputTransaction = call.argument<String>("inputTransaction")
-        val addressTo = call.argument<String>("addressTo")
-        if (null == words || null == inputTransaction || null == addressTo || null == coinName) {
+        if (null == words || null == inputTransaction || null == coinName) {
             result.error("0", "words and coinName and addressTo and inputTransaction can not be null", "signTransaction")
         } else {
             val coinWallet = walletFactory.getCoinWallet(CoinType.valueOf(coinName))
             pluginScope.launch(Dispatchers.IO) {
                 try {
-                    val signHash = coinWallet.signTransaction(inputTransaction, addressTo, words, passPhrase ?: "")
+                    val signHash = coinWallet.signTransaction(inputTransaction, words, passPhrase ?: "")
                     withContext(Dispatchers.Main) {
                         result.success(signHash)
                     }

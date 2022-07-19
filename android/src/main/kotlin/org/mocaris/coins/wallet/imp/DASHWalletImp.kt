@@ -84,16 +84,15 @@ class DASHWalletImp : CoinWallet() {
 
     override fun signTransaction(
         inputTransaction: String,
-        addr: String,
         mnemonicWords: List<String>,
         passPhrase: String
     ): String {
         try {
             val bytes = HEX.decode(inputTransaction)
             val transaction = Transaction(netParam, bytes)
-            val address = Address.fromBase58(netParam, addr)
-            val scriptPubKey = ScriptBuilder.createOutputScript(address)
             val ecKey = createBip44ECKey(mnemonicWords, passPhrase)
+            val address = ecKey.toAddress(netParam)
+            val scriptPubKey = ScriptBuilder.createOutputScript(address)
             // 对输入进行签名
             val numInputs = transaction.inputs.size
             for (i in 0 until numInputs) {

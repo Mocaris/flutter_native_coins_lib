@@ -87,7 +87,6 @@ class LTCWalletImp : CoinWallet() {
 
     override fun signTransaction(
         inputTransaction: String,
-        addr: String,
         mnemonicWords: List<String>,
         passPhrase: String
     ): String {
