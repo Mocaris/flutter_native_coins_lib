@@ -20,6 +20,17 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
+#jar
+ -keep class  org.bitcoin.**{*;}
+ -keep class  org.bitcoinj.**{*;}
+ -keep class  org.litecoin.**{*;}
+ -keep class  org.litecoinj.**{*;}
+ -keep class  org.web3j.**{*;}
+ -keep class  bch.org.**{*;}
+ -keep class  dash.org.**{*;}
+ -keep class  io.eblock.eos4j.**{*;}
+ -keep class  org.tron.**{*;}
+
 #ali 热修复=====================================
 #基线包使用，生成mapping.txt
 -printmapping mapping.txt
